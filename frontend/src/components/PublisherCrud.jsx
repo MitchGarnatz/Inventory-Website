@@ -2,57 +2,57 @@ import { useState } from "react";
 import api from "../api/axiosConfig";
 import PublisherList from "./PublisherList";
 
-const PublisherCrud = ({ load, publishers }) => {
+const PublisherCrud = ({ load, rocks }) => {
 /* state definition  */
   const [id, setId] = useState("");
   const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [published, setPublished] = useState("");
+  const [weight, setWeight] = useState("");
+  const [price, setPrice] = useState("");
 
   /* being handlers */
   async function save(event) {
     event.preventDefault();
     await api.post("/create", {
       name: name,
-      email: email,
-      published: published,
+      weight: weight,
+      price: price,
     });
-    alert("Publisher Record Saved");
+    alert("Information has been saved");
     // reset state
     setId("");
     setName("");
-    setEmail("");
-    setPublished("");
+    setWeight("");
+    setPrice("");
     load();
   }
-  async function editEmployee(publishers) {
-    setName(publishers.name);
-    setEmail(publishers.email);
-    setPublished(publishers.published);
-    setId(publishers.id);
+  async function editRock(rocks) {
+    setName(rocks.name);
+    setWeight(rocks.weight);
+    setPrice(rocks.price);
+    setId(rocks.id);
   }
 
-  async function deleteEmployee(id) {
+  async function deleteRock(id) {
     await api.delete("/delete/" + id);
-    alert("Publisher Details Deleted Successfully");
+    alert("Rock Details Deleted Successfully");
     load();
   }
 
   async function update(event) {
     event.preventDefault();
-    if (!id) return alert("Publisher Details No Found");
+    if (!id) return alert("Rock Details Not Found");
     await api.put("/update", {
       id: id,
       name: name,
-      email: email,
-      published: published,
+      weight: weight,
+      price: price,
     });
-    alert("Publisher Details Updated");
+    alert("Rock Details Updated");
     // reset state
     setId("");
     setName("");
-    setEmail("");
-    setPublished("");
+    setWeight("");
+    setPrice("");
     load();
   }
   /* end handlers */
@@ -79,31 +79,31 @@ const PublisherCrud = ({ load, publishers }) => {
         </div>
 
         <div className="form-group mb-2">
-          <label>Email</label>
+          <label>Weight</label>
           <input
             type="text"
             className="form-control"
-            value={email}
-            onChange={e => setEmail(e.target.value)}
+            value={weight}
+            onChange={e => setWeight(e.target.value)}
           />
         </div>
 
         <div className="row">
           <div className="col-4">
-            <label>Published</label>
+            <label>Price</label>
             <input
               type="text"
               className="form-control"
-              value={published}
-              placeholder="Published Post(s)"
-              onChange={e => setPublished(e.target.value)}
+              value={price}
+              placeholder="Price in $"
+              onChange={e => setPrice(e.target.value)}
             />
           </div>
         </div>
 
         <div>
           <button className="btn btn-primary m-4" onClick={save}>
-            Register
+            Submit
           </button>
           <button className="btn btn-warning m-4" onClick={update}>
             Update
@@ -111,9 +111,9 @@ const PublisherCrud = ({ load, publishers }) => {
         </div>
       </form>
       <PublisherList
-        publishers={publishers}
-        editEmployee={editEmployee}
-        deleteEmployee={deleteEmployee}
+        rocks={rocks}
+        editRock={editRock}
+        deleteRock={deleteRock}
       />
     </div>
   );

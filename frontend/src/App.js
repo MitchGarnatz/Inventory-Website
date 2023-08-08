@@ -5,7 +5,7 @@ import "./App.css";
 import PublisherCrud from "./components/PublisherCrud";
 
 function App() {
-  const [publishers, setPublishers] = useState([]);
+  const [rocks, setRocks] = useState([]);
 
   /* manage side effects */
   useEffect(() => {
@@ -14,13 +14,13 @@ function App() {
 
   async function load() {
     const result = await api.get("/all");
-    setPublishers(result.data);
+    setRocks(result.data);
   }
 
   return (
     <div>
-      <h1 className="text-center">List Of Publisher</h1>
-      <PublisherCrud load={load} publishers={publishers} />
+      <h1 className="text-center">List Of Rocks</h1>
+      <PublisherCrud load={load} rocks={rocks} />
     </div>
   );
 }
