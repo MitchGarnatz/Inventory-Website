@@ -1,23 +1,26 @@
-import logo from './logo.svg';
-import './App.css';
+import "bootstrap/dist/css/bootstrap.css";
+import api from "./api/axiosConfig";
+import { useEffect, useState } from "react";
+import "./App.css";
+import PublisherCrud from "./components/PublisherCrud";
 
 function App() {
+  const [publishers, setPublishers] = useState([]);
+
+  /* manage side effects */
+  useEffect(() => {
+    (async () => await load())();
+  }, []);
+
+  async function load() {
+    const result = await api.get("/all");
+    setPublishers(result.data);
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <h1 className="text-center">List Of Publisher</h1>
+      <PublisherCrud load={load} publishers={publishers} />
     </div>
   );
 }
