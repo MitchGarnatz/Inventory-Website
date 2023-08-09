@@ -2,7 +2,7 @@ import "bootstrap/dist/css/bootstrap.css";
 import api from "./api/axiosConfig";
 import { useEffect, useState } from "react";
 import "./App.css";
-import PublisherCrud from "./components/PublisherCrud";
+import RockCrud from "./components/RockCrud";
 
 function App() {
   const [rocks, setRocks] = useState([]);
@@ -20,7 +20,7 @@ function App() {
   return (
     <div>
       <h1 className="text-center">List Of Rocks</h1>
-      <PublisherCrud load={load} rocks={rocks} />
+      <RockCrud load={load} rocks={rocks} />
     </div>
   );
 }
