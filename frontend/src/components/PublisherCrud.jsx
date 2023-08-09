@@ -6,29 +6,49 @@ const PublisherCrud = ({ load, rocks }) => {
 /* state definition  */
   const [id, setId] = useState("");
   const [name, setName] = useState("");
+  const [location, setLocation] = useState("");
   const [weight, setWeight] = useState("");
   const [price, setPrice] = useState("");
+  const [width, setWidth] = useState("");
+  const [length, setLength] = useState("");
+  const [height, setHeight] = useState("");
+  const [imagePath, setImagePath] = useState("");
 
   /* being handlers */
   async function save(event) {
     event.preventDefault();
     await api.post("/create", {
       name: name,
+      location: location,
       weight: weight,
       price: price,
+      width: width,
+      length: length,
+      height: height,
+      imagePath: imagePath
     });
     alert("Information has been saved");
     // reset state
     setId("");
     setName("");
+    setLocation("");
     setWeight("");
     setPrice("");
+    setWidth("");
+    setLength("");
+    setHeight("");
+    setImagePath("");
     load();
   }
   async function editRock(rocks) {
     setName(rocks.name);
+    setLocation(rocks.location);
     setWeight(rocks.weight);
     setPrice(rocks.price);
+    setWidth(rocks.width);
+    setLength(rocks.length);
+    setHeight(rocks.height);
+    setImagePath(rocks.imagePath);
     setId(rocks.id);
   }
 
@@ -44,15 +64,25 @@ const PublisherCrud = ({ load, rocks }) => {
     await api.put("/update", {
       id: id,
       name: name,
+      location: location,
       weight: weight,
       price: price,
+      width: width,
+      length: length,
+      height: height,
+      imagePath: imagePath
     });
     alert("Rock Details Updated");
     // reset state
     setId("");
     setName("");
+    setLocation("");
     setWeight("");
     setPrice("");
+    setWidth("");
+    setLength("");
+    setHeight("");
+    setImagePath("");
     load();
   }
   /* end handlers */
@@ -79,6 +109,16 @@ const PublisherCrud = ({ load, rocks }) => {
         </div>
 
         <div className="form-group mb-2">
+          <label>Location</label>
+          <input
+            type="text"
+            className="form-control"
+            value={location}
+            onChange={e => setLocation(e.target.value)}
+          />
+        </div>
+
+        <div className="form-group mb-2">
           <label>Weight</label>
           <input
             type="text"
@@ -90,13 +130,61 @@ const PublisherCrud = ({ load, rocks }) => {
 
         <div className="row">
           <div className="col-4">
+            <label>Width</label>
+            <input
+              type="text"
+              className="form-control"
+              value={width}
+              placeholder=""
+              onChange={e => setWidth(e.target.value)}
+            />
+          </div>
+
+          <div className="col-4">
+            <label>Length</label>
+            <input
+              type="text"
+              className="form-control"
+              value={length}
+              placeholder=""
+              onChange={e => setLength(e.target.value)}
+            />
+          </div>
+
+          <div className="col-4">
+            <label>Height</label>
+            <input
+              type="text"
+              className="form-control"
+              value={height}
+              placeholder=""
+              onChange={e => setHeight(e.target.value)}
+            />
+          </div>
+        </div>
+
+        <div className="row">
+          <div className="col-4">
             <label>Price</label>
             <input
               type="text"
               className="form-control"
               value={price}
-              placeholder="Price in $"
+              placeholder=""
               onChange={e => setPrice(e.target.value)}
+            />
+          </div>
+        </div>
+
+        <div className="row">
+          <div className="col-4">
+            <label>Image</label>
+            <input
+              type="text"
+              className="form-control"
+              value={imagePath}
+              placeholder=""
+              onChange={e => setImagePath(e.target.value)}
             />
           </div>
         </div>

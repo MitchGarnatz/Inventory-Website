@@ -7,9 +7,13 @@ const PublisherList = ({ rocks, editRock, deleteRock }) => {
         <tr>
           <th scope="col">Nº</th>
           <th scope="col">Name</th>
+          <th scope="col">Location</th>
           <th scope="col">Weight</th>
+          <th scope="col">Width</th>
+          <th scope="col">Length</th>
+          <th scope="col">Height</th>
           <th scope="col">Price</th>
-
+          <th scope="col">Image</th>
           <th scope="col">Option</th>
         </tr>
       </thead>
@@ -19,8 +23,13 @@ const PublisherList = ({ rocks, editRock, deleteRock }) => {
             <tr>
               <th scope="row">{index + 1} </th>
               <td>{rock.name}</td>
+              <td>{rock.location}</td>
               <td>{rock.weight}</td>
+              <td>{rock.width}</td>
+              <td>{rock.length}</td>
+              <td>{rock.height}</td>
               <td>{rock.price}</td>
+              <td>{rock.imagePath}</td>
               <td>
                 <button
                   type="button"
