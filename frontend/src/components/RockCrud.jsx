@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState , useEffect} from "react";
 import api from "../api/axiosConfig";
 import RockList from "./RockList";
 
@@ -15,14 +15,16 @@ const RockCrud = ({ load, rocks }) => {
   const [imagePath, setImagePath] = useState("");
   const [imageFile, setImageFile] = useState(null);
 
+  useEffect(() => {
+    if (imageFile) {
+      const Test = require("./images/" + imageFile.name);
+      setImagePath(Test);
+    }
+  }, [imageFile]);
 
   const handleFileChange = (event) => {
-
     const file = event.target.files[0];
     setImageFile(file);
-
-    const Test = require("./images/" + imageFile.name);
-    setImagePath(Test);
   };
 
   /* being handlers */
@@ -50,6 +52,7 @@ const RockCrud = ({ load, rocks }) => {
     setLength("");
     setHeight("");
     setImagePath("");
+    setImageFile(null);
     load();
   }
   async function editRock(rocks) {
@@ -199,13 +202,6 @@ const RockCrud = ({ load, rocks }) => {
               className="form-control"
               placeholder=""
             />
-            <img src={imagePath} alt="Uploaded" style={{ maxWidth: '100%' }}/>
-            <img src={imageFile} alt="Uploaded" style={{ maxWidth: '100%' }} href="/public/images" />
-          </div>
-        </div>
-
-        <div className="row">
-          <div className="col-4">
             <label>Image</label>
             <input
               type="text"
@@ -214,6 +210,9 @@ const RockCrud = ({ load, rocks }) => {
               placeholder=""
               onChange={e => setImagePath(e.target.value)}
             />
+          </div>
+          <div className="col-4">
+            <img src={imagePath} alt="Uploaded" style={{ maxWidth: '100%' }}/>
           </div>
         </div>
 
