@@ -1,36 +1,37 @@
+// App.js
 import "bootstrap/dist/css/bootstrap.css";
-import api from "./api/axiosConfig";
-import { useEffect, useState } from "react";
-import "./App.css";
-import RockCrud from "./components/RockCrud";
-import Navigation from "./components/Navigation";
+import React from 'react';
+
+// Element Imports
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+
+// Templates
+import Navigation from './components/Navigation'; 
+import HomeTemplate from './components/templates/HomeTemplate';
+import InventoryTemplate from './components/templates/InventoryTemplate'; 
+import OrderTemplate from './components/templates/OrderTemplate'; 
+import MapPurchaseTemplate from './components/templates/MapPurchaseTemplate';
+import AboutTemplate from './components/templates/AboutTemplate';
+import ReviewTemplate from './components/templates/ReviewTemplate';
+import ManagementTemplate from './components/templates/ManagementTemplate';
 
 function App() {
-  const [rocks, setRocks] = useState([]);
-
-  /* manage side effects */
-  useEffect(() => {
-    (async () => await load())();
-  }, []);
-
-  async function load() {
-    const result = await api.get("/all");
-    setRocks(result.data);
-  }
-
   return (
-    
-    <div>
+    <Router>
       <div className="container">
         <h1>Template Selector</h1>
         <Navigation />
+        <Routes>
+          <Route path="/" element={<HomeTemplate />} />
+          <Route path="/browse-inventory" element={<InventoryTemplate />} />
+          <Route path="/order-information" element={<OrderTemplate />} />
+          <Route path="/map-purchase" element={<MapPurchaseTemplate />} />
+          <Route path="/about-product" element={<AboutTemplate />} />
+          <Route path="/reviews" element={<ReviewTemplate />} />
+          <Route path="/owner-management" element={<ManagementTemplate />} />
+        </Routes>
       </div>
-      
-      <h1 className="text-center">List Of Rocks</h1>
-      <RockCrud load={load} rocks={rocks} />
-    </div>
-
-    
+    </Router>
   );
 }
 
