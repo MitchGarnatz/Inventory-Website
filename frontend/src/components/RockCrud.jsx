@@ -1,5 +1,5 @@
 import { useState , useEffect, useRef} from "react";
-import api from "./api/axiosConfig";
+import {apiRock} from "./api/axiosConfig";
 import RockList from "./RockList";
 
 const RockCrud = ({ load, rocks }) => {
@@ -40,7 +40,7 @@ const RockCrud = ({ load, rocks }) => {
     setImageFile(null);
 
     try {
-      await api.post("/create", {
+      await apiRock.post("/create", {
         name: name,
         location: location,
         weight: weight,
@@ -81,7 +81,7 @@ const RockCrud = ({ load, rocks }) => {
   }
 
   async function deleteRock(id) {
-    await api.delete("/delete/" + id);
+    await apiRock.delete("/delete/" + id);
     alert("Rock Details Deleted Successfully");
     load();
   }
@@ -90,7 +90,7 @@ const RockCrud = ({ load, rocks }) => {
     event.preventDefault();
     if (!id) return alert("Rock Details Not Found");
     try {
-      await api.put("/update", {
+      await apiRock.put("/update", {
         id: id,
         name: name,
         location: location,

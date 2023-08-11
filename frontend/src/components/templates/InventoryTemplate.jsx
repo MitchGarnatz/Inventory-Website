@@ -1,5 +1,5 @@
 import React from 'react';
-import api from "../api/axiosConfig";
+import {apiRock} from "../api/axiosConfig";
 
 import { useEffect, useState } from "react";
 
@@ -13,7 +13,7 @@ function InventoryTemplate() {
     }, []);
     
     async function load() {
-        const result = await api.get("/all");
+        const result = await apiRock.get("/all");
         setRocks(result.data);
     }
 
