@@ -61,6 +61,13 @@ const RockNameCrud = ({ load, rockNames }) => {
     }
   }
 
+  async function deleteAll(event) {
+    event.preventDefault();
+    await apiRockName.delete("/deleteAll");
+    alert("Rock Details All Deleted Successfully");
+    load();
+  }
+
   /* end handlers */
 
 /* jsx */
@@ -90,6 +97,9 @@ const RockNameCrud = ({ load, rockNames }) => {
           </button>
           <button className="btn btn-warning m-4" onClick={update}>
             Update
+          </button>
+          <button className="btn btn-warning m-4" onClick={deleteAll}>
+            Delete All Records
           </button>
         </div>
       </form>

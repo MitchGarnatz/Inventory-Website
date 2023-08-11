@@ -1,5 +1,5 @@
 import { useState , useEffect, useRef} from "react";
-import {apiRock} from "./api/axiosConfig";
+import {apiRock, apiRockName} from "./api/axiosConfig";
 import RockList from "./RockList";
 
 const RockCrud = ({ load, rocks }) => {
@@ -16,12 +16,33 @@ const RockCrud = ({ load, rocks }) => {
   const [imageFile, setImageFile] = useState(null);
   const hiddenFileInput = useRef(null);
 
+  const [namesList, setNamesList] = useState([]);
+  const [selectedName, setSelectedName] = useState('');
+
+
+  useEffect(() => {
+    // Fetch the names from the API endpoint
+    apiRockName.get('/all-names') // Replace with your actual API endpoint
+      .then(response => {
+        setNamesList(response.data);
+      })
+      .catch(error => {
+        console.error('Error fetching names:', error);
+        });
+  }, []);
+
   useEffect(() => {
     if (imageFile) {
       const Test = require("./images/" + imageFile.name);
       setImagePath(Test);
     }
   }, [imageFile]);
+
+  useEffect(() => {
+    if (name) {
+      setSelectedName(name);
+    }
+  }, [name]);
 
   const handleFileChange = (event) => {
     const file = event.target.files[0];
@@ -48,7 +69,8 @@ const RockCrud = ({ load, rocks }) => {
         width: width,
         length: length,
         height: height,
-        imagePath: imagePath
+        imagePath: imagePath,
+        selectedName: selectedName
       });
       alert("Information has been saved");
       // reset state
@@ -61,6 +83,7 @@ const RockCrud = ({ load, rocks }) => {
       setLength("");
       setHeight("");
       setImagePath("");
+      setSelectedName('');
       load();
 
     } catch (error) {
@@ -78,6 +101,13 @@ const RockCrud = ({ load, rocks }) => {
     setHeight(rocks.height);
     setImagePath(rocks.imagePath);
     setId(rocks.id);
+  }
+
+  async function deleteAll(event) {
+    event.preventDefault();
+    await apiRock.delete("/deleteAll");
+    alert("Rock Details All Deleted Successfully");
+    load();
   }
 
   async function deleteRock(id) {
@@ -100,7 +130,8 @@ const RockCrud = ({ load, rocks }) => {
         length: length,
         height: height,
         imagePath: imagePath,
-        imageFile: imageFile
+        imageFile: imageFile,
+        selectedName: selectedName
       });
       alert("Rock Details Updated");
       // reset state
@@ -114,6 +145,7 @@ const RockCrud = ({ load, rocks }) => {
       setHeight("");
       setImagePath("");
       setImageFile(null);
+      setSelectedName('');
       load();
     }
     catch (error) {
@@ -136,13 +168,22 @@ const RockCrud = ({ load, rocks }) => {
             value={id}
             onChange={e => setId(e.target.value)}
           />
-          <label>Name</label>
-          <input
-            type="text"
-            className="form-control"
-            value={name}
-            onChange={e => setName(e.target.value)}
-          />
+          <label htmlFor="nameSelect">Select a Name:</label>
+          <select
+            id="nameSelect"
+            value={selectedName}
+            onChange={e => {
+              setSelectedName(e.target.value);
+              setName(e.target.value);
+            }}
+          >
+            <option value="">Select an option</option>
+            {namesList.map((name, index) => (
+              <option key={index} value={name}>
+                {name}
+              </option>
+            ))}
+          </select>
         </div>
 
         <div className="form-group mb-2">
@@ -245,6 +286,9 @@ const RockCrud = ({ load, rocks }) => {
           </button>
           <button className="btn btn-warning m-4" onClick={update}>
             Update
+          </button>
+          <button className="btn btn-warning m-4" onClick={deleteAll}>
+            Delete All Records
           </button>
         </div>
       </form>
