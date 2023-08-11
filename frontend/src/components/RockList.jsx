@@ -1,6 +1,12 @@
 import React from "react";
 
+import altImage from './images/alternate.jpeg';
+
 const RockList = ({ rocks, editRock, deleteRock }) => {
+
+  var isPrimaryImageAvailable = true; // Set this based on your logic
+  const altText = "Alternative Image";
+  
   return (
     <table className="table table-hover mt-3" align="center">
       <thead className="thead-light">
@@ -18,6 +24,13 @@ const RockList = ({ rocks, editRock, deleteRock }) => {
         </tr>
       </thead>
       {rocks.map((rock, index) => {
+        
+        if (rock.imagePath === "") {
+          isPrimaryImageAvailable = false;
+        } else {
+          isPrimaryImageAvailable = true;
+        }
+
         return (
           <tbody key={rock.id}>
             <tr>
@@ -29,7 +42,13 @@ const RockList = ({ rocks, editRock, deleteRock }) => {
               <td>{rock.length}</td>
               <td>{rock.height}</td>
               <td>{rock.price}</td>
-              <td><img src={rock.imagePath} alt="Uploaded" style={{ maxWidth: '100%' }} /></td>
+              <td>
+                {isPrimaryImageAvailable ? (
+                  <img src={rock.imagePath} alt={altText} />
+                ) : (
+                  <img src={altImage} alt={altText} />
+                )}             
+              </td>
               <td>
                 <button
                   type="button"

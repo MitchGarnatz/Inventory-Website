@@ -30,6 +30,13 @@ const RockCrud = ({ load, rocks }) => {
   /* being handlers */
   async function save(event) {
     event.preventDefault();
+    if (!name) return alert("Rock Details Not Found");
+    if (!location) return alert("Rock Details Not Found");
+    if (!weight) return alert("Rock Details Not Found");
+    if (!width) return alert("Rock Details Not Found");
+    if (!length) return alert("Rock Details Not Found");
+    if (!height) return alert("Rock Details Not Found");
+
     await api.post("/create", {
       name: name,
       location: location,
@@ -212,7 +219,7 @@ const RockCrud = ({ load, rocks }) => {
             />
           </div>
           <div className="col-4">
-            <img src={imagePath} alt="Uploaded" style={{ maxWidth: '100%' }}/>
+            <img src={imagePath} alt="" style={{ maxWidth: '100%' }}/>
           </div>
         </div>
 
