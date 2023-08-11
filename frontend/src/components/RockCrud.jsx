@@ -31,38 +31,42 @@ const RockCrud = ({ load, rocks }) => {
   /* being handlers */
   async function save(event) {
     event.preventDefault();
-    if (!name) return alert("Rock Details Not Found");
-    if (!location) return alert("Rock Details Not Found");
-    if (!weight) return alert("Rock Details Not Found");
-    if (!width) return alert("Rock Details Not Found");
-    if (!length) return alert("Rock Details Not Found");
-    if (!height) return alert("Rock Details Not Found");
+
+    if (!name || !location || !weight || !width || !length || !height) {
+      return alert("Rock Details Not Found");
+    }
     
     hiddenFileInput.current.value = null;
     setImageFile(null);
 
-    await api.post("/create", {
-      name: name,
-      location: location,
-      weight: weight,
-      price: price,
-      width: width,
-      length: length,
-      height: height,
-      imagePath: imagePath
-    });
-    alert("Information has been saved");
-    // reset state
-    setId("");
-    setName("");
-    setLocation("");
-    setWeight("");
-    setPrice("");
-    setWidth("");
-    setLength("");
-    setHeight("");
-    setImagePath("");
-    load();
+    try {
+      await api.post("/create", {
+        name: name,
+        location: location,
+        weight: weight,
+        price: price,
+        width: width,
+        length: length,
+        height: height,
+        imagePath: imagePath
+      });
+      alert("Information has been saved");
+      // reset state
+      setId("");
+      setName("");
+      setLocation("");
+      setWeight("");
+      setPrice("");
+      setWidth("");
+      setLength("");
+      setHeight("");
+      setImagePath("");
+      load();
+
+    } catch (error) {
+        console.error("Error:", error.message);
+        alert("An error occurred while saving the information. Invalid input.");
+    }
   }
   async function editRock(rocks) {
     setName(rocks.name);
@@ -85,31 +89,37 @@ const RockCrud = ({ load, rocks }) => {
   async function update(event) {
     event.preventDefault();
     if (!id) return alert("Rock Details Not Found");
-    await api.put("/update", {
-      id: id,
-      name: name,
-      location: location,
-      weight: weight,
-      price: price,
-      width: width,
-      length: length,
-      height: height,
-      imagePath: imagePath,
-      imageFile: imageFile
-    });
-    alert("Rock Details Updated");
-    // reset state
-    setId("");
-    setName("");
-    setLocation("");
-    setWeight("");
-    setPrice("");
-    setWidth("");
-    setLength("");
-    setHeight("");
-    setImagePath("");
-    setImageFile(null);
-    load();
+    try {
+      await api.put("/update", {
+        id: id,
+        name: name,
+        location: location,
+        weight: weight,
+        price: price,
+        width: width,
+        length: length,
+        height: height,
+        imagePath: imagePath,
+        imageFile: imageFile
+      });
+      alert("Rock Details Updated");
+      // reset state
+      setId("");
+      setName("");
+      setLocation("");
+      setWeight("");
+      setPrice("");
+      setWidth("");
+      setLength("");
+      setHeight("");
+      setImagePath("");
+      setImageFile(null);
+      load();
+    }
+    catch (error) {
+      console.error("Error:", error.message);
+      alert("An error occurred while saving the information. Invalid input.");
+    }
   }
 
   /* end handlers */
