@@ -1,4 +1,4 @@
-import { useState , useEffect} from "react";
+import { useState , useEffect, useRef} from "react";
 import api from "./api/axiosConfig";
 import RockList from "./RockList";
 
@@ -14,6 +14,7 @@ const RockCrud = ({ load, rocks }) => {
   const [height, setHeight] = useState("");
   const [imagePath, setImagePath] = useState("");
   const [imageFile, setImageFile] = useState(null);
+  const hiddenFileInput = useRef(null);
 
   useEffect(() => {
     if (imageFile) {
@@ -36,6 +37,9 @@ const RockCrud = ({ load, rocks }) => {
     if (!width) return alert("Rock Details Not Found");
     if (!length) return alert("Rock Details Not Found");
     if (!height) return alert("Rock Details Not Found");
+    
+    hiddenFileInput.current.value = null;
+    setImageFile(null);
 
     await api.post("/create", {
       name: name,
@@ -45,8 +49,7 @@ const RockCrud = ({ load, rocks }) => {
       width: width,
       length: length,
       height: height,
-      imagePath: imagePath,
-      imageFile: imageFile
+      imagePath: imagePath
     });
     alert("Information has been saved");
     // reset state
@@ -59,7 +62,6 @@ const RockCrud = ({ load, rocks }) => {
     setLength("");
     setHeight("");
     setImagePath("");
-    setImageFile(null);
     load();
   }
   async function editRock(rocks) {
@@ -92,7 +94,8 @@ const RockCrud = ({ load, rocks }) => {
       width: width,
       length: length,
       height: height,
-      imagePath: imagePath
+      imagePath: imagePath,
+      imageFile: imageFile
     });
     alert("Rock Details Updated");
     // reset state
@@ -105,6 +108,7 @@ const RockCrud = ({ load, rocks }) => {
     setLength("");
     setHeight("");
     setImagePath("");
+    setImageFile(null);
     load();
   }
 
@@ -203,7 +207,9 @@ const RockCrud = ({ load, rocks }) => {
           <div className="col-4">
             <label>Image</label>
             <input 
+              id="fileInput"
               type="file" 
+              ref={hiddenFileInput}
               accept="image/*" 
               onChange={handleFileChange} 
               className="form-control"
