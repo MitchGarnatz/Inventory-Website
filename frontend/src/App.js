@@ -19,7 +19,6 @@ function App() {
   return (
     <Router>
       <div className="container">
-        <h1>Template Selector</h1>
         <Navigation />
         <Routes>
           <Route path="/" element={<HomeTemplate />} />

@@ -2,7 +2,7 @@ import React from "react";
 
 import altImage from '../images/alternate.jpeg';
 
-const InventoryList = ({ rocks, selectRockAndAddToCart}) => {
+const OrderList = ({ rocks, selectRock, removeFromCart, purchaseRock}) => {
 
   var isPrimaryImageAvailable = true; // Set this based on your logic
   const altText = "Alternative Image";
@@ -49,15 +49,29 @@ const InventoryList = ({ rocks, selectRockAndAddToCart}) => {
                   <img src={altImage} alt={altText} />
                 )}             
               </td>
-
               <td>
-           
+              <button
+                  type="button"
+                  className="btn btn-danger m-2"
+                  onClick={() => removeFromCart(rock.id)}
+                >
+                  Remove From Cart
+                </button>
+                
+                <button
+                  type="button"
+                  className="btn btn-warning m-2"
+                  onClick={() => selectRock(rock)}
+                >
+                  Select Order Information
+                </button>
+
                 <button
                   type="button"
                   className="btn btn-primary m-2"
-                  onClick={() => selectRockAndAddToCart(rock)}
+                  onClick={() => purchaseRock()}
                 >
-                  Add To Cart
+                  Purchase Order
                 </button>
               </td>
             </tr>
@@ -68,4 +82,4 @@ const InventoryList = ({ rocks, selectRockAndAddToCart}) => {
   );
 };
 
-export default InventoryList;
+export default OrderList;

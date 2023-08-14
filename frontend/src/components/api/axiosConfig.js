@@ -12,3 +12,7 @@ export const apiCart = axios.create({
   baseURL: "http://localhost:8000/cart",
 });
 
+export const apiOrder = axios.create({
+  baseURL: "http://localhost:8000/order",
+});
+

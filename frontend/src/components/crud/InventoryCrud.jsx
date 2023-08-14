@@ -1,4 +1,4 @@
-import { useState} from "react";
+import { useState, useEffect, useCallback} from "react";
 import {apiCart} from "../api/axiosConfig";
 import InventoryList from "../list/InventoryList";
 
@@ -13,17 +13,29 @@ const InventoryCrud = ({ load, rocks }) => {
   const [length, setLength] = useState("");
   const [height, setHeight] = useState("");
   const [imagePath, setImagePath] = useState("");
+  const [rockSelected, setRockSelected] = useState(false);
 
+  const resetState = useCallback(() => {
+    setId("");
+    setName("");
+    setLocation("");
+    setWeight("");
+    setPrice("");
+    setWidth("");
+    setLength("");
+    setHeight("");
+    setImagePath("");
+    setRockSelected(false); // Reset rock selection
+  }, []);
 
-  /* being handlers */
-  async function addToCart() {
-
+  const memoizedAddToCart = useCallback(async () => {
     if (!name || !location || !weight || !width || !length || !height) {
-      return alert("Rock Details Not Found");
-    }
+        alert("Rock Details Not Found");
+        return;
+  }
 
-    try {
-      await apiCart.post("/addToCart", {
+  try {
+    await apiCart.post("/addToCart", {
         id: id,
         name: name,
         location: location,
@@ -33,26 +45,19 @@ const InventoryCrud = ({ load, rocks }) => {
         length: length,
         height: height,
         imagePath: imagePath
-      });
+    });
+
       alert("Information has been saved");
-      // reset state
-      setId("");
-      setName("");
-      setLocation("");
-      setWeight("");
-      setPrice("");
-      setWidth("");
-      setLength("");
-      setHeight("");
-      setImagePath("");
+      resetState();
       load();
 
     } catch (error) {
-        console.error("Error:", error.message);
-        alert("An error occurred while saving the information. Invalid input.");
+      console.error("Error:", error.message);
+      alert("An error occurred while saving the information. Invalid input.");
     }
-  }
-  async function selectRock(rocks) {
+  }, [name, location, weight, width, length, height, id, price, imagePath, resetState, load]);
+
+  const selectRock = useCallback((rocks) => {
     setName(rocks.name);
     setLocation(rocks.location);
     setWeight(rocks.weight);
@@ -62,17 +67,23 @@ const InventoryCrud = ({ load, rocks }) => {
     setHeight(rocks.height);
     setImagePath(rocks.imagePath);
     setId(rocks.id);
-  }
+    setRockSelected(true); // Mark rock as selected
+  }, []);
+
+  useEffect(() => {
+    if (rockSelected) {
+        memoizedAddToCart(); // Call memoizedAddToCart when rock details are selected
+    }
+  }, [rockSelected, memoizedAddToCart]);
 
 
-/* jsx */
+  /* jsx */
   return (
     <div className="container mt-4">
 
       <InventoryList
         rocks={rocks}
-        selectRock={selectRock}
-        addToCart={addToCart}
+        selectRockAndAddToCart={selectRock}
       />
     </div>
   );
