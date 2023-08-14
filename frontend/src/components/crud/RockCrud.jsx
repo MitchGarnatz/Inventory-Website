@@ -1,6 +1,6 @@
 import { useState , useEffect, useRef} from "react";
-import {apiRock, apiRockName} from "./api/axiosConfig";
-import RockList from "./RockList";
+import {apiRock, apiRockName} from "../api/axiosConfig";
+import RockList from "../list/RockList";
 
 const RockCrud = ({ load, rocks }) => {
 /* state definition  */
@@ -33,7 +33,7 @@ const RockCrud = ({ load, rocks }) => {
 
   useEffect(() => {
     if (imageFile) {
-      const Test = require("./images/" + imageFile.name);
+      const Test = require("../images/" + imageFile.name);
       setImagePath(Test);
     }
   }, [imageFile]);

@@ -1,6 +1,6 @@
 import React from 'react';
-import RockCrud from "../RockCrud";
-import RockNameCrud from "../RockNameCrud";
+import RockCrud from "../crud/RockCrud";
+import RockNameCrud from "../crud/RockNameCrud";
 import {apiRock, apiRockName} from "../api/axiosConfig";
 import { useEffect, useState } from "react";
 

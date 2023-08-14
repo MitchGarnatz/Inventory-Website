@@ -1,6 +1,6 @@
 import { useState } from "react";
-import {apiRockName} from "./api/axiosConfig";
-import RockNameList from "./RockNameList";
+import {apiRockName} from "../api/axiosConfig";
+import RockNameList from "../list/RockNameList";
 
 const RockNameCrud = ({ load, rockNames }) => {
 /* state definition  */

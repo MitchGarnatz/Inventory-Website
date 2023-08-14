@@ -1,8 +1,8 @@
 import React from "react";
 
-import altImage from './images/alternate.jpeg';
+import altImage from '../images/alternate.jpeg';
 
-const RockList = ({ rocks, editRock, deleteRock }) => {
+const InventoryList = ({ rocks, selectRock, addToCart}) => {
 
   var isPrimaryImageAvailable = true; // Set this based on your logic
   const altText = "Alternative Image";
@@ -50,19 +50,19 @@ const RockList = ({ rocks, editRock, deleteRock }) => {
                 )}             
               </td>
               <td>
-                <button
+              <button
                   type="button"
                   className="btn btn-warning"
-                  onClick={() => editRock(rock)}
+                  onClick={() => selectRock(rock)}
                 >
-                  Edit
+                  Select
                 </button>
                 <button
                   type="button"
-                  className="btn btn-danger mx-2"
-                  onClick={() => deleteRock(rock.id)}
+                  className="btn btn-warning"
+                  onClick={() => addToCart()}
                 >
-                  Delete
+                  Add To Cart
                 </button>
               </td>
             </tr>
@@ -73,4 +73,4 @@ const RockList = ({ rocks, editRock, deleteRock }) => {
   );
 };
 
-export default RockList;
+export default InventoryList;

@@ -8,3 +8,7 @@ export const apiRockName = axios.create({
   baseURL: "http://localhost:8000/rock-name",
 });
 
+export const apiCart = axios.create({
+  baseURL: "http://localhost:8000/cart",
+});
+
