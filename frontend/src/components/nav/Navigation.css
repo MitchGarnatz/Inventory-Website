@@ -1,0 +1,35 @@
+.custom-navbar {
+    background-color: blue; /* Set the primary background color */
+    padding: 10px;
+    color: white; /* Set the text color */
+}
+
+.nav-list {
+    list-style: none;
+    display: flex;
+    justify-content: space-around;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-item {
+    text-align: center;
+    padding: 10px 20px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.nav-item.active {
+    background-color: green; /* Set the active item background color */
+}
+
+.nav-link {
+    text-decoration: none;
+    color: inherit;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+.nav-item:hover .nav-link {
+    color: yellow; /* Set the link color on hover */
+}

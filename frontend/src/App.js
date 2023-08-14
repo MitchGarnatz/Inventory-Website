@@ -6,7 +6,7 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 // Templates
-import Navigation from './components/Navigation'; 
+import Navigation from './components/nav/Navigation'; 
 import HomeTemplate from './components/templates/HomeTemplate';
 import InventoryTemplate from './components/templates/InventoryTemplate'; 
 import OrderTemplate from './components/templates/OrderTemplate'; 
