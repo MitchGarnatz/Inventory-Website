@@ -32,7 +32,7 @@ const InventoryCrud = ({ load, rocks }) => {
     if (!name || !location || !weight || !width || !length || !height) {
         alert("Rock Details Not Found");
         return;
-  }
+    }
 
   try {
     await apiCart.post("/addToCart", {
@@ -79,13 +79,10 @@ const InventoryCrud = ({ load, rocks }) => {
 
   /* jsx */
   return (
-    <div className="container mt-4">
-
-      <InventoryList
-        rocks={rocks}
-        selectRockAndAddToCart={selectRock}
-      />
-    </div>
+    <InventoryList
+      rocks={rocks}
+      selectRockAndAddToCart={selectRock}
+    />
   );
 };
 

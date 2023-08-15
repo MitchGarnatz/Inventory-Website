@@ -1,6 +1,7 @@
 // App.js
 import "bootstrap/dist/css/bootstrap.css";
 import React from 'react';
+import "./App.css";
 
 // Element Imports
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
@@ -18,7 +19,7 @@ import ManagementTemplate from './components/templates/ManagementTemplate';
 function App() {
   return (
     <Router>
-      <div className="container">
+      <div className="container-fluid">
         <Navigation />
         <Routes>
           <Route path="/" element={<HomeTemplate />} />

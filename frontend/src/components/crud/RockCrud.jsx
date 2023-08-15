@@ -158,138 +158,149 @@ const RockCrud = ({ load, rocks }) => {
 
 /* jsx */
   return (
-    <div className="container mt-4">
+    <div className="container-fluid mt-4">
       <form>
-        <div className="form-group my-2">
-          <input
-            type="text"
-            className="form-control"
-            hidden
-            value={id}
-            onChange={e => setId(e.target.value)}
-          />
-          <label htmlFor="nameSelect">Select a Name:</label>
-          <select
-            id="nameSelect"
-            value={selectedName}
-            onChange={e => {
-              setSelectedName(e.target.value);
-              setName(e.target.value);
-            }}
-          >
-            <option value="">Select an option</option>
-            {namesList.map((name, index) => (
-              <option key={index} value={name}>
-                {name}
-              </option>
-            ))}
-          </select>
-        </div>
-
-        <div className="form-group mb-2">
-          <label>Location</label>
-          <input
-            type="text"
-            className="form-control"
-            value={location}
-            onChange={e => setLocation(e.target.value)}
-          />
-        </div>
-
-        <div className="form-group mb-2">
-          <label>Weight</label>
-          <input
-            type="text"
-            className="form-control"
-            value={weight}
-            onChange={e => setWeight(e.target.value)}
-          />
-        </div>
-
         <div className="row">
-          <div className="col-4">
-            <label>Width</label>
-            <input
-              type="text"
-              className="form-control"
-              value={width}
-              placeholder=""
-              onChange={e => setWidth(e.target.value)}
-            />
+          <div className="col-md-6">
+            <div className="form-group my-2">
+              <input
+                type="text"
+                className="form-control"
+                hidden
+                value={id}
+                onChange={e => setId(e.target.value)}
+              />
+              <label htmlFor="nameSelect">Select a Name:</label>
+              <select
+                id="nameSelect"
+                value={selectedName}
+                onChange={e => {
+                  setSelectedName(e.target.value);
+                  setName(e.target.value);
+                }}
+              >
+                <option value="">Select an option</option>
+                {namesList.map((name, index) => (
+                  <option key={index} value={name}>
+                    {name}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            <div className="form-group mb-2">
+              <label>Location</label>
+              <input
+                type="text"
+                className="form-control"
+                value={location}
+                onChange={e => setLocation(e.target.value)}
+              />
+            </div>
+
+            <div className="form-group mb-2">
+              <label>Weight</label>
+              <input
+                type="text"
+                className="form-control"
+                value={weight}
+                onChange={e => setWeight(e.target.value)}
+              />
+            </div>
           </div>
 
-          <div className="col-4">
-            <label>Length</label>
-            <input
-              type="text"
-              className="form-control"
-              value={length}
-              placeholder=""
-              onChange={e => setLength(e.target.value)}
-            />
+          <div className="row">
+            <div className="col-md-4">
+              <label>Width</label>
+              <input
+                type="text"
+                className="form-control"
+                value={width}
+                placeholder=""
+                onChange={e => setWidth(e.target.value)}
+              />
+            </div>
+
+            <div className="col-md-4">
+              <label>Length</label>
+              <input
+                type="text"
+                className="form-control"
+                value={length}
+                placeholder=""
+                onChange={e => setLength(e.target.value)}
+              />
+            </div>
+
+            <div className="col-md-4">
+              <label>Height</label>
+              <input
+                type="text"
+                className="form-control"
+                value={height}
+                placeholder=""
+                onChange={e => setHeight(e.target.value)}
+              />
+            </div>
           </div>
 
-          <div className="col-4">
-            <label>Height</label>
-            <input
-              type="text"
-              className="form-control"
-              value={height}
-              placeholder=""
-              onChange={e => setHeight(e.target.value)}
-            />
+          <div className="row">
+            <div className="col-md-4">
+              <label>Price</label>
+              <input
+                type="text"
+                className="form-control"
+                value={price}
+                placeholder=""
+                onChange={e => setPrice(e.target.value)}
+              />
+            </div>
+          </div>
+          <div className="col-md-6">
+            <div className="row">
+              <div className="col-md-8">
+                <div className="form-group">
+                  <label>Image</label>
+                  <input 
+                    id="fileInput"
+                    type="file" 
+                    ref={hiddenFileInput}
+                    accept="image/*" 
+                    onChange={handleFileChange} 
+                    className="form-control"
+                    placeholder=""
+                  />
+                  <label>Image</label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    value={imagePath}
+                    placeholder=""
+                    onChange={e => setImagePath(e.target.value)}
+                  />
+                </div>
+              </div>
+              <div className="col-md-4">
+                <img src={imagePath} alt="" style={{ maxWidth: '100%' }}/>
+              </div>
+            </div>
           </div>
         </div>
 
-        <div className="row">
-          <div className="col-4">
-            <label>Price</label>
-            <input
-              type="text"
-              className="form-control"
-              value={price}
-              placeholder=""
-              onChange={e => setPrice(e.target.value)}
-            />
+        <div className="row mt-4">
+          <div className="col-md-6">
+            <button className="btn btn-primary m-2" onClick={save}>
+              Submit
+            </button>
+            <button className="btn btn-warning m-2" onClick={update}>
+              Update
+            </button>
           </div>
-        </div>
-
-        <div className="row">
-          <div className="col-4">
-            <label>Image</label>
-            <input 
-              id="fileInput"
-              type="file" 
-              ref={hiddenFileInput}
-              accept="image/*" 
-              onChange={handleFileChange} 
-              className="form-control"
-              placeholder=""
-            />
-            <label>Image</label>
-            <input
-              type="text"
-              className="form-control"
-              value={imagePath}
-              placeholder=""
-              onChange={e => setImagePath(e.target.value)}
-            />
+          <div className="col-md-6">
+            <button className="btn btn-warning m-2" onClick={deleteAll}>
+              Delete All Records
+            </button>
           </div>
-          <div className="col-4">
-            <img src={imagePath} alt="" style={{ maxWidth: '100%' }}/>
-          </div>
-        </div>
-
-        <div>
-          <button className="btn btn-primary m-4" onClick={save}>
-            Submit
-          </button>
-          <button className="btn btn-warning m-4" onClick={update}>
-            Update
-          </button>
-          <button className="btn btn-warning m-4" onClick={deleteAll}>
-            Delete All Records
-          </button>
         </div>
       </form>
 
