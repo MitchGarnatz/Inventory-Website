@@ -1,22 +1,29 @@
 import React from "react";
 
+import { useState } from "react";
+
 import altImage from '../images/alternate.jpeg';
 
 const OrderList = ({ rocks, purchaseRock, removeFromCart}) => {
+
+  const [orderDetails, setOrderDetails] = useState([]);
 
   var isPrimaryImageAvailable = true; // Set this based on your logic
   const altText = "Alternative Image";
 
   const handlePurchaseAll = async () => {
+    const purchasedDetails = [];
     for (const rock of rocks) {
       try {
         await purchaseRock(rock);
+        purchasedDetails.push(rock);
         console.log('Purchased rock:', rock);
       } catch (error) {
         console.error("Error:", error.message);
         alert("An error occurred while purchasing the rocks. Please try again.");
       }
     }
+    setOrderDetails(purchasedDetails);
   };
   
   return (
@@ -83,6 +90,20 @@ const OrderList = ({ rocks, purchaseRock, removeFromCart}) => {
             >
             Purchase Order
         </button>
+
+        
+        {orderDetails.length > 0 && (
+            <div>
+                <h2>Order Details</h2>
+                <ul>
+                {orderDetails.map((order, index) => (
+                    <li key={index}>
+                    Confirmation #{order.id} - {order.name} - {order.location} - ${order.price}
+                    </li>
+                ))}
+                </ul>
+            </div>
+        )}
     </div>
   );
 };
