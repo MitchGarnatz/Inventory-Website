@@ -4,7 +4,7 @@ function HomeTemplate() {
 
   return (
     <div>
-      <h2>Home Page!!!</h2>  
+      <h2 className="text-center">Home Page!!!</h2>  
     </div>
   );
 }

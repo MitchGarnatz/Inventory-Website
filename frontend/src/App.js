@@ -19,18 +19,16 @@ import ManagementTemplate from './components/templates/ManagementTemplate';
 function App() {
   return (
     <Router>
-      <div className="container-fluid">
         <Navigation />
-        <Routes>
-          <Route path="/" element={<HomeTemplate />} />
-          <Route path="/browse-inventory" element={<InventoryTemplate />} />
-          <Route path="/order-information" element={<OrderTemplate />} />
-          <Route path="/map-purchase" element={<MapPurchaseTemplate />} />
-          <Route path="/about-product" element={<AboutTemplate />} />
-          <Route path="/reviews" element={<ReviewTemplate />} />
-          <Route path="/owner-management" element={<ManagementTemplate />} />
-        </Routes>
-      </div>
+          <Routes>
+            <Route path="/" element={<HomeTemplate />} />
+            <Route path="/browse-inventory" element={<InventoryTemplate />} />
+            <Route path="/order-information" element={<OrderTemplate />} />
+            <Route path="/map-purchase" element={<MapPurchaseTemplate />} />
+            <Route path="/about-product" element={<AboutTemplate />} />
+            <Route path="/reviews" element={<ReviewTemplate />} />
+            <Route path="/owner-management" element={<ManagementTemplate />} />
+          </Routes>
     </Router>
   );
 }

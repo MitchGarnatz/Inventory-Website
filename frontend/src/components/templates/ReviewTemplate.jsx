@@ -4,7 +4,7 @@ function ReviewTemplate() {
 
   return (
     <div>
-      <h2>Write About Us!</h2>  
+      <h2 className="text-center">Reviews!!!</h2>  
     </div>
   );
 }

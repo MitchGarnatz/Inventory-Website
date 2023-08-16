@@ -4,7 +4,7 @@ function MapPurchaseTemplate() {
 
   return (
     <div>
-      <h2>Find Where Your Purchase Resides!</h2>  
+      <h2 className="text-center">Find Where Your Purchase Resides!!!</h2>  
     </div>
   );
 }

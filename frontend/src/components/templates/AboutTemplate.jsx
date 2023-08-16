@@ -4,7 +4,7 @@ function AboutTemplate() {
 
   return (
     <div>
-      <h2>About the Jouney</h2>  
+      <h2 className="text-center">About the journey!!!</h2>  
     </div>
   );
 }

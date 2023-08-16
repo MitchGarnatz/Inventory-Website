@@ -30,10 +30,10 @@ function ManagementTemplate() {
 
   return (
     <div>
-      <h1 className="text-center">List Of Rock Names</h1>
+      <h1 className="text-center">Add Rock Name</h1>
       <RockNameCrud load={loadNames} rockNames={rockNames} />
 
-      <h1 className="text-center">List Of Rocks</h1>
+      <h1 className="text-center">Add Rock Item</h1>
       <RockCrud load={load} rocks={rocks} />
     </div>
   );
