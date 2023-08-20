@@ -19,7 +19,6 @@ function InventoryTemplate() {
 
 return (
   <div>
-    <h1 className="text-center">Available For Purchase</h1>
     <InventoryCrud load={load} rocks={rocks} />
   </div>
 );

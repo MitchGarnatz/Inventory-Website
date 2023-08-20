@@ -15,11 +15,14 @@ import MapPurchaseTemplate from './components/templates/MapPurchaseTemplate';
 import AboutTemplate from './components/templates/AboutTemplate';
 import ReviewTemplate from './components/templates/ReviewTemplate';
 import ManagementTemplate from './components/templates/ManagementTemplate';
+import SearchBar from "./components/search/SearchBar";
 
 function App() {
   return (
-    <Router>
-        <Navigation />
+    <header>
+      <SearchBar />
+        <Router>
+          <Navigation />
           <Routes>
             <Route path="/" element={<HomeTemplate />} />
             <Route path="/browse-inventory" element={<InventoryTemplate />} />
@@ -29,7 +32,8 @@ function App() {
             <Route path="/reviews" element={<ReviewTemplate />} />
             <Route path="/owner-management" element={<ManagementTemplate />} />
           </Routes>
-    </Router>
+      </Router>
+    </header>
   );
 }
 

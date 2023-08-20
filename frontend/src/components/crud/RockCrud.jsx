@@ -22,7 +22,7 @@ const RockCrud = ({ load, rocks }) => {
 
   useEffect(() => {
     // Fetch the names from the API endpoint
-    apiRockName.get('/all-names') // Replace with your actual API endpoint
+    apiRockName.get('/unique-names') // Replace with your actual API endpoint
       .then(response => {
         setNamesList(response.data);
       })
@@ -158,7 +158,7 @@ const RockCrud = ({ load, rocks }) => {
 
 /* jsx */
   return (
-    <div className="container-fluid mt-4">
+    <div className="container mt-4">
       <form>
         <div className="row">
           <div className="col-md-6">

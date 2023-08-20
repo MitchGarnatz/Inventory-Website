@@ -79,10 +79,12 @@ const InventoryCrud = ({ load, rocks }) => {
 
   /* jsx */
   return (
-    <InventoryList
-      rocks={rocks}
-      selectRockAndAddToCart={selectRock}
-    />
+    <div className="container">
+      <InventoryList
+        rocks={rocks}
+        selectRockAndAddToCart={selectRock}
+      />
+    </div>
   );
 };
 

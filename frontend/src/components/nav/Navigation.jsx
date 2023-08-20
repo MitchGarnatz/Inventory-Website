@@ -28,7 +28,6 @@ function Navigation() {
                 aria-expanded={isMenuOpen}
             >
                 <span className="navbar-toggler-icon"></span>
-                <label>Menu</label>
             </button>
             
             <Header/>

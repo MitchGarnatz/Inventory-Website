@@ -66,7 +66,7 @@ const OrderCrud = ({ load, rocks }) => {
 
 /* jsx */
   return (
-    <div className="container-fluid">
+    <div className="container">
       <OrderList
         rocks={rocks}
         purchaseRock={selectRock}

@@ -19,7 +19,6 @@ function OrderTemplate() {
 
 return (
   <div>
-    <h1 className="text-center">Items in Cart</h1>
     <OrderCrud load={load} rocks={rocks} />
   </div>
 );
