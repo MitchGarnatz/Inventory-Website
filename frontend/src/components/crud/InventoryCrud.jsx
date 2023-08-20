@@ -14,6 +14,15 @@ const InventoryCrud = ({ load, rocks }) => {
   const [height, setHeight] = useState("");
   const [imagePath, setImagePath] = useState("");
   const [rockSelected, setRockSelected] = useState(false);
+  const [filteredAttributes, setFilteredAttributes] = useState([]);
+
+  const handleCheckboxChange = (attribute) => {
+    if (filteredAttributes.includes(attribute)) {
+      setFilteredAttributes(filteredAttributes.filter(attr => attr !== attribute));
+    } else {
+      setFilteredAttributes([...filteredAttributes, attribute]);
+    }
+  };
 
   const resetState = useCallback(() => {
     setId("");
@@ -80,9 +89,67 @@ const InventoryCrud = ({ load, rocks }) => {
   /* jsx */
   return (
     <div className="container">
+      <div>
+        <div className="form-check form-check-inline">
+          <input
+            className="form-check-input"
+            type="checkbox"
+            checked={filteredAttributes.includes('iron')}
+            onChange={() => handleCheckboxChange('iron')}
+          />
+          <label className="form-check-label">Iron</label>
+        </div>
+        <div className="form-check form-check-inline">
+          <input
+            className="form-check-input"
+            type="checkbox"
+            checked={filteredAttributes.includes('green jasper')}
+            onChange={() => handleCheckboxChange('green jasper')}
+          />
+          <label className="form-check-label">Green Jasper</label>
+        </div>
+        <div className="form-check form-check-inline">
+          <input
+            className="form-check-input"
+            type="checkbox"
+            checked={filteredAttributes.includes('red jasper')}
+            onChange={() => handleCheckboxChange('red jasper')}
+          />
+          <label className="form-check-label">Red Jasper</label>
+        </div>
+        <div className="form-check form-check-inline">
+          <input
+            className="form-check-input"
+            type="checkbox"
+            checked={filteredAttributes.includes('agate')}
+            onChange={() => handleCheckboxChange('agate')}
+          />
+          <label className="form-check-label">Agate</label>
+        </div>
+        <div className="form-check form-check-inline">
+          <input
+            className="form-check-input"
+            type="checkbox"
+            checked={filteredAttributes.includes('binghamite')}
+            onChange={() => handleCheckboxChange('binghamite')}
+          />
+          <label className="form-check-label">Binghamite</label>
+        </div>
+        <div className="form-check form-check-inline">
+          <input
+            className="form-check-input"
+            type="checkbox"
+            checked={filteredAttributes.includes('petrified wood')}
+            onChange={() => handleCheckboxChange('petrified wood')}
+          />
+          <label className="form-check-label">Petrified Wood</label>
+        </div>
+      </div>
+      
       <InventoryList
         rocks={rocks}
         selectRockAndAddToCart={selectRock}
+        filteredAttributes={filteredAttributes}
       />
     </div>
   );

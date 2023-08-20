@@ -1,11 +1,14 @@
 import React from "react";
 import altImage from '../images/alternate.jpeg';
 
-const InventoryList = ({ rocks, selectRockAndAddToCart}) => {
+const InventoryList = ({ rocks, selectRockAndAddToCart, filteredAttributes}) => {
+  const filteredRocks = filteredAttributes.length > 0
+    ? rocks.filter(rock => filteredAttributes.includes(rock.name.toLowerCase()))
+    : rocks;
   
   return (
     <div className="container-fluid">
-      {rocks.map((rock, index) => (
+      {filteredRocks.map((rock, index) => (
         <div key={rock.id} className="row-item">
           <div>
             <h3>{rock.name}</h3>
