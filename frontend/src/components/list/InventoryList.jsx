@@ -13,6 +13,9 @@ const InventoryList = ({ rocks, selectRockAndAddToCart}) => {
           </div>
           <img src={rock.imagePath || altImage} alt="Rock" className="rock-image" />
           <div>
+            <p>Length: {rock.length}</p>
+            <p>Width: {rock.width}</p>
+            <p>Height: {rock.height}</p>
             <p>Weight: {rock.weight}</p>
             <p>Price: {rock.price}</p>
           </div>
