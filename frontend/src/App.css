@@ -137,3 +137,17 @@
   font-style: italic;
   padding-right: 8rem;
 }
+
+.dropdown-button {
+  margin-top: 10px; /* Adjust the value as needed */
+}
+
+.dropdown-container {
+  display: flex; /* Display the dropdowns side by side */
+  align-items: center; /* Center items vertically within the container */
+  gap: 20px; /* Add some space between the dropdowns */
+}
+
+.dropdown {
+  margin-right: 100px; /* Add space between the dropdowns horizontally */
+}

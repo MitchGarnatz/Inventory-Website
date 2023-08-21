@@ -1,10 +1,13 @@
 import React from "react";
 import altImage from '../images/alternate.jpeg';
 
-const InventoryList = ({ rocks, selectRockAndAddToCart, filteredAttributes}) => {
-  const filteredRocks = filteredAttributes.length > 0
-    ? rocks.filter(rock => filteredAttributes.includes(rock.name.toLowerCase()))
-    : rocks;
+const InventoryList = ({ rocks, selectRockAndAddToCart, filteredAttributes, filteredLocations}) => {
+  const filteredRocks = filteredAttributes.length > 0 || filteredLocations.length > 0
+  ? rocks.filter(rock => 
+      (filteredAttributes.length === 0 || filteredAttributes.includes(rock.name.toLowerCase())) &&
+      (filteredLocations.length === 0 || filteredLocations.includes(rock.location.toLowerCase()))
+    )
+  : rocks;
   
   return (
     <div className="container-fluid">

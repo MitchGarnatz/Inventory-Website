@@ -14,13 +14,47 @@ const InventoryCrud = ({ load, rocks }) => {
   const [height, setHeight] = useState("");
   const [imagePath, setImagePath] = useState("");
   const [rockSelected, setRockSelected] = useState(false);
+
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [isDropdownOpenLocations, setIsDropdownOpenLocations] = useState(false);
+
   const [filteredAttributes, setFilteredAttributes] = useState([]);
+  const [filteredLocations, setFilteredLocations] = useState([]);
+
+  const toggleDropdown = () => {
+    setIsDropdownOpen(!isDropdownOpen);
+  };
+
+  const toggleDropdownLocations = () => {
+    setIsDropdownOpenLocations(!isDropdownOpenLocations);
+  };
+
+  const filterNames = [
+    'iron',
+    'green jasper',
+    'red jasper',
+    'agate',
+    'binghamite',
+    'petrified wood'
+  ];
+
+  const filterLocations = [
+    'mn',
+  ];
 
   const handleCheckboxChange = (attribute) => {
     if (filteredAttributes.includes(attribute)) {
       setFilteredAttributes(filteredAttributes.filter(attr => attr !== attribute));
     } else {
       setFilteredAttributes([...filteredAttributes, attribute]);
+    }
+  };
+
+  const handleLocationCheckboxChange = (location) => {
+    if (filteredLocations.includes(location)) {
+      setFilteredLocations(filteredLocations.filter(loc => loc !== location));
+    } else {
+      setFilteredLocations([...filteredLocations, location]);
     }
   };
 
@@ -89,67 +123,68 @@ const InventoryCrud = ({ load, rocks }) => {
   /* jsx */
   return (
     <div className="container">
-      <div>
-        <div className="form-check form-check-inline">
-          <input
-            className="form-check-input"
-            type="checkbox"
-            checked={filteredAttributes.includes('iron')}
-            onChange={() => handleCheckboxChange('iron')}
-          />
-          <label className="form-check-label">Iron</label>
+      <div className="dropdown-container">
+        <div className="dropdown">
+          <button
+            className="btn btn-secondary dropdown-toggle dropdown-button"
+            type="button"
+            id="dropdownNameButton"
+            data-toggle="dropdown"
+            aria-haspopup="true"
+            aria-expanded={isDropdownOpen}
+            onClick={toggleDropdown}
+          >
+          Name
+          </button>
+          <div className={`dropdown-menu${isDropdownOpen ? ' show' : ''}`} aria-labelledby="dropdownMenuButton">
+            {filterNames.map(name => (
+              <div key={name} className="form-check">
+                <input
+                  className="form-check-input"
+                  type="checkbox"
+                  checked={filteredAttributes.includes(name)}
+                  onChange={() => handleCheckboxChange(name)}
+                />
+                <label className="form-check-label">{name}</label>
+              </div>
+            ))}
+          </div>
         </div>
-        <div className="form-check form-check-inline">
-          <input
-            className="form-check-input"
-            type="checkbox"
-            checked={filteredAttributes.includes('green jasper')}
-            onChange={() => handleCheckboxChange('green jasper')}
-          />
-          <label className="form-check-label">Green Jasper</label>
-        </div>
-        <div className="form-check form-check-inline">
-          <input
-            className="form-check-input"
-            type="checkbox"
-            checked={filteredAttributes.includes('red jasper')}
-            onChange={() => handleCheckboxChange('red jasper')}
-          />
-          <label className="form-check-label">Red Jasper</label>
-        </div>
-        <div className="form-check form-check-inline">
-          <input
-            className="form-check-input"
-            type="checkbox"
-            checked={filteredAttributes.includes('agate')}
-            onChange={() => handleCheckboxChange('agate')}
-          />
-          <label className="form-check-label">Agate</label>
-        </div>
-        <div className="form-check form-check-inline">
-          <input
-            className="form-check-input"
-            type="checkbox"
-            checked={filteredAttributes.includes('binghamite')}
-            onChange={() => handleCheckboxChange('binghamite')}
-          />
-          <label className="form-check-label">Binghamite</label>
-        </div>
-        <div className="form-check form-check-inline">
-          <input
-            className="form-check-input"
-            type="checkbox"
-            checked={filteredAttributes.includes('petrified wood')}
-            onChange={() => handleCheckboxChange('petrified wood')}
-          />
-          <label className="form-check-label">Petrified Wood</label>
+
+        <div className="dropdown">
+          <button
+            className="btn btn-secondary dropdown-toggle dropdown-button"
+            type="button"
+            id="dropdownLocationButton"
+            data-toggle="dropdown"
+            aria-haspopup="true"
+            aria-expanded={isDropdownOpenLocations}
+            onClick={toggleDropdownLocations}
+          >
+            Location
+          </button>
+          <div className={`dropdown-menu${isDropdownOpenLocations ? ' show' : ''}`} aria-labelledby="dropdownLocationButton">
+          {/* Mapping through filterLocations instead of filterNames */}
+            {filterLocations.map(location => (
+            <div key={location} className="form-check">
+              <input
+                className="form-check-input"
+                type="checkbox"
+                checked={filteredLocations.includes(location)}
+                onChange={() => handleLocationCheckboxChange(location)}
+              />
+              <label className="form-check-label">{location}</label>
+            </div>
+            ))}
+          </div>
         </div>
       </div>
-      
+
       <InventoryList
         rocks={rocks}
         selectRockAndAddToCart={selectRock}
         filteredAttributes={filteredAttributes}
+        filteredLocations={filteredLocations}
       />
     </div>
   );
