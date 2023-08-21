@@ -30,16 +30,24 @@ const InventoryCrud = ({ load, rocks }) => {
   };
 
   const filterNames = [
-    'iron',
-    'green jasper',
-    'red jasper',
-    'agate',
-    'binghamite',
-    'petrified wood'
+    'Iron',
+    'Green Jasper',
+    'Red Jasper',
+    'Agate',
+    'Binghamite',
+    'Petrified Wood',
+    'Quarts'
   ];
 
   const filterLocations = [
-    'mn',
+    'Minnesota',
+    'North Dakota',
+    'South Dakota',
+    'Montana',
+    'Colorado',
+    'Idaho',
+    'Wisconsin',
+    'Michigan'
   ];
 
   const handleCheckboxChange = (attribute) => {
