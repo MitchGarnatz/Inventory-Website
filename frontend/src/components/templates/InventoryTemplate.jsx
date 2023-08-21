@@ -14,6 +14,7 @@ function InventoryTemplate() {
 
   async function load() {
     const result = await apiRock.get("/all");
+    
     setRocks(result.data);
   }
 

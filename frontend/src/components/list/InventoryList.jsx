@@ -1,21 +1,11 @@
 import React from "react";
 import altImage from '../images/alternate.jpeg';
 
-const InventoryList = ({ rocks, selectRockAndAddToCart, filteredAttributes, filteredLocations}) => {
-
-  const lowercasedNames = filteredAttributes.map(name => name.toLowerCase());
-  const lowercasedLocations = filteredLocations.map(location => location.toLowerCase());
-
-  const filteredRocks = filteredAttributes.length > 0 || filteredLocations.length > 0
-  ? rocks.filter(rock => 
-      (filteredAttributes.length === 0 || lowercasedNames.includes(rock.name.toLowerCase())) &&
-      (filteredLocations.length === 0 || lowercasedLocations.includes(rock.location.toLowerCase()))
-    )
-  : rocks;
+const InventoryList = ({ rocks, selectRockAndAddToCart}) => {
   
   return (
     <div className="container-fluid">
-      {filteredRocks.map((rock, index) => (
+      {rocks.map((rock, index) => (
         <div key={rock.id} className="row-item">
           <div>
             <h3>{rock.name}</h3>
