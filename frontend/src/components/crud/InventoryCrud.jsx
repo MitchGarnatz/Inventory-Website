@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback} from "react";
 import {apiCart} from "../api/axiosConfig";
 import InventoryList from "../list/InventoryList";
+import FilterMenu from '../filter/FilterMenu'; 
 
 const InventoryCrud = ({ load, rocks }) => {
 /* state definition  */
@@ -14,8 +15,6 @@ const InventoryCrud = ({ load, rocks }) => {
   const [height, setHeight] = useState("");
   const [imagePath, setImagePath] = useState("");
   const [rockSelected, setRockSelected] = useState(false);
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [isDropdownOpenLocations, setIsDropdownOpenLocations] = useState(false);
   const [filteredAttributes, setFilteredAttributes] = useState([]);
   const [filteredLocations, setFilteredLocations] = useState([]);
   const [minLength, setMinLength] = useState(""); 
@@ -30,6 +29,11 @@ const InventoryCrud = ({ load, rocks }) => {
   const [maxPrice, setMaxPrice] = useState("");
   const [filteredRocks, setFilteredRocks] = useState([]);
   const [showFilteredRocks, setShowFilteredRocks] = useState(false);
+  const [filterOpen, setFilterOpen] = useState(false);
+
+  const toggleFilter = () => {
+    setFilterOpen(!filterOpen);
+  };
 
   const handleMinLengthChange = (event) => {
     setMinLength(event.target.value);
@@ -67,14 +71,6 @@ const InventoryCrud = ({ load, rocks }) => {
 
   const handleMaxPriceChange = (event) => {
     setMaxPrice(event.target.value);
-  };
-
-  const toggleDropdown = () => {
-    setIsDropdownOpen(!isDropdownOpen);
-  };
-
-  const toggleDropdownLocations = () => {
-    setIsDropdownOpenLocations(!isDropdownOpenLocations);
   };
 
   const filterNames = [
@@ -150,8 +146,7 @@ const InventoryCrud = ({ load, rocks }) => {
       const isMaxPriceMatch = !maxPrice || rock.price <= parseInt(maxPrice, 10); // Ensure to specify base 10
 
       setShowFilteredRocks(true);
-      toggleDropdown();
-      toggleDropdownLocations();
+      toggleFilter();
   
       return isNameMatch && isLocationMatch && isMinLengthMatch && isMaxLengthMatch && isMinWidthMatch &&
              isMaxWidthMatch && isMinHeightMatch && isMaxHeightMatch && isMinWeightMatch && isMaxWeightMatch &&
@@ -223,161 +218,56 @@ const InventoryCrud = ({ load, rocks }) => {
   /* jsx */
   return (
     <div className="container">
-      <div className="row">
-        <div className="col-md-12 p-3">
-          <div className="dropdown">
-            <button
-              className="btn btn-secondary dropdown-toggle"
-              type="button"
-              id="dropdownFiltersButton"
-              data-toggle="dropdown"
-              aria-haspopup="true"
-              aria-expanded={isDropdownOpen}
-              onClick={toggleDropdown}
-            >
-              Filters
-            </button>
-            <div className={`dropdown-menu${isDropdownOpen ? ' show' : ''}`} aria-labelledby="dropdownFiltersButton">
-              <div className="form-group px-3">
-                <label>Filter by Name:</label>
-                {filterNames.map(name => (
-                  <div key={name} className="form-check form-check-inline">
-                    <input
-                      className="form-check-input"
-                      type="checkbox"
-                      checked={filteredAttributes.includes(name)}
-                      onChange={() => handleCheckboxChange(name)}
-                    />
-                    <label className="form-check-label">{name}</label>
-                  </div>
-                ))}
-              </div>
-              <div className="form-group px-3 ">
-                <label>Filter by Location:</label>
-                {filterLocations.map(location => (
-                  <div key={location} className="form-check form-check-inline">
-                    <input
-                      className="form-check-input"
-                      type="checkbox"
-                      checked={filteredLocations.includes(location)}
-                      onChange={() => handleLocationCheckboxChange(location)}
-                    />
-                    <label className="form-check-label">{location}</label>
-                  </div>
-                ))}
-              </div>
-              <div className="form-group px-3">
-                <label>Filter by Length:</label>
-                <input
-                  type="number"
-                  className="form-control"
-                  value={minLength}
-                  onChange={handleMinLengthChange}
-                  placeholder="Min Length"
-                />
-                <input
-                  type="number"
-                  className="form-control"
-                  value={maxLength}
-                  onChange={handleMaxLengthChange}
-                  placeholder="Max Length"
-                />
-              </div>
-              <div className="form-group px-3">
-                <label>Filter by Width:</label>
-                <input
-                  type="number"
-                  className="form-control"
-                  value={minWidth}
-                  onChange={handleMinWidthChange}
-                  placeholder="Min Width"
-                />
-                <input
-                  type="number"
-                  className="form-control"
-                  value={maxWidth}
-                  onChange={handleMaxWidthChange}
-                  placeholder="Max Width"
-                />
-              </div>
-              <div className="form-group px-3">
-                <label>Filter by Height:</label>
-                <input
-                  type="number"
-                  className="form-control"
-                  value={minHeight}
-                  onChange={handleMinHeightChange}
-                  placeholder="Min Height"
-                />
-                <input
-                  type="number"
-                  className="form-control"
-                  value={maxHeight}
-                  onChange={handleMaxHeightChange}
-                  placeholder="Max Height"
-                />
-              </div>
-              <div className="form-group px-3">
-                <label>Filter by Weight:</label>
-                <input
-                  type="number"
-                  className="form-control"
-                  value={minWeight}
-                  onChange={handleMinWeightChange}
-                  placeholder="Min Weight"
-                />
-                <input
-                  type="number"
-                  className="form-control"
-                  value={maxWeight}
-                  onChange={handleMaxWeightChange}
-                  placeholder="Max Weight"
-                />
-              </div>
-              <div className="form-group px-3">
-                <label>Filter by Price:</label>
-                <input
-                  type="number"
-                  className="form-control"
-                  value={minPrice}
-                  onChange={handleMinPriceChange}
-                  placeholder="Min Price"
-                />
-                <input
-                  type="number"
-                  className="form-control"
-                  value={maxPrice}
-                  onChange={handleMaxPriceChange}
-                  placeholder="Max Price"
-                />
-              </div>
-              <div className="row form-group px-3">
-                <div className="col-md-8"></div>
-                <div className="col-md-4 form-group d-flex justify-content-between px-3">
-                  <button className="btn btn-primary" onClick={handleSubmit}>
-                    Apply Filters
-                  </button>
-                  <button className="btn btn-secondary" onClick={handleResetFilters}>
-                    Reset Filters
-                  </button>
-                  <button className="btn btn-secondary" onClick={toggleDropdown}>
-                    Close
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+      <div className="col-md-2 p-3">
+        <button className="btn btn-primary" onClick={() => load(true, false)}>
+            Price Low - High
+          </button>
+      </div>
+      <div className="col-md-2 p-3">
+        <button className="btn btn-primary" onClick={() => load(false, true)}>
+            Price High - Low
+        </button>
+      </div>
+      
+
+      <div className="container">
         <div className="col-md-2 p-3">
-          <button className="btn btn-primary" onClick={() => load(true, false)}>
-              Price Low - High
-            </button>
-        </div>
-        <div className="col-md-2 p-3">
-          <button className="btn btn-primary" onClick={() => load(false, true)}>
-              Price High - Low
+          <button className="btn btn-primary" onClick={toggleFilter}>
+            Open Filter Menu
           </button>
         </div>
+        <FilterMenu 
+          isOpen={filterOpen}
+          onClose={toggleFilter}
+          filterNames={filterNames}
+          filterLocations={filterLocations}
+          filteredAttributes={filteredAttributes}
+          filteredLocations={filteredLocations}
+          minLength={minLength}
+          maxLength={maxLength}
+          minWidth={minWidth}
+          maxWidth={maxWidth}
+          minHeight={minHeight}
+          maxHeight={maxHeight}
+          minWeight={minWeight}
+          maxWeight={maxWeight}
+          minPrice={minPrice}
+          maxPrice={maxPrice}
+          handleCheckboxChange={handleCheckboxChange}
+          handleLocationCheckboxChange={handleLocationCheckboxChange}
+          handleMinLengthChange={handleMinLengthChange}
+          handleMaxLengthChange={handleMaxLengthChange}
+          handleMinWidthChange={handleMinWidthChange}
+          handleMaxWidthChange={handleMaxWidthChange}
+          handleMinHeightChange={handleMinHeightChange}
+          handleMaxHeightChange={handleMaxHeightChange}
+          handleMinWeightChange={handleMinWeightChange}
+          handleMaxWeightChange={handleMaxWeightChange}
+          handleMinPriceChange={handleMinPriceChange}
+          handleMaxPriceChange={handleMaxPriceChange}
+          handleSubmit={handleSubmit}
+          handleResetFilters={handleResetFilters}
+          />
       </div>
 
       <InventoryList
