@@ -215,16 +215,35 @@ const InventoryCrud = ({ load, rocks }) => {
     }
   }, [rockSelected, memoizedAddToCart]);
 
+  const sort = async (descending = false) => {
+    if (filteredRocks.length > 0) {
+      // Sort the filtered rocks based on price
+      const sortedFilteredRocks = [...filteredRocks]; // Create a copy of the array
+      sortedFilteredRocks.sort((a, b) => a.price - b.price);
+      if (descending) {
+        sortedFilteredRocks.reverse();
+      }
+      setFilteredRocks(sortedFilteredRocks);
+      setShowFilteredRocks(true);
+    } else {
+        if (descending) {
+          load(false, true);
+        } else {
+          load(true, false);
+        }
+    }
+  };
+
   /* jsx */
   return (
     <div className="container">
       <div className="col-md-2 p-3">
-        <button className="btn btn-primary" onClick={() => load(true, false)}>
+        <button className="btn btn-primary" onClick={() => sort(false)}>
             Price Low - High
           </button>
       </div>
       <div className="col-md-2 p-3">
-        <button className="btn btn-primary" onClick={() => load(false, true)}>
+        <button className="btn btn-primary" onClick={() => sort(true)}>
             Price High - Low
         </button>
       </div>

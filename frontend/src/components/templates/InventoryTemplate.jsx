@@ -14,13 +14,12 @@ function InventoryTemplate() {
 
   async function load(sortByPriceAsc = false, sortByPriceDesc = false) {
     let url = "/all";
-
+    
     if (sortByPriceAsc) {
         url = "/all/sortByPrice";
     } else if (sortByPriceDesc) {
         url = "/all/sortByPriceDesc";
     }
-
     const result = await apiRock.get(url);
     setRocks(result.data);
 }
