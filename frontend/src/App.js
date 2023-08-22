@@ -19,21 +19,23 @@ import SearchBar from "./components/search/SearchBar";
 
 function App() {
   return (
-    <header>
-      <SearchBar />
-        <Router>
-          <Navigation />
-          <Routes>
-            <Route path="/" element={<HomeTemplate />} />
-            <Route path="/browse-inventory" element={<InventoryTemplate />} />
-            <Route path="/order-information" element={<OrderTemplate />} />
-            <Route path="/map-purchase" element={<MapPurchaseTemplate />} />
-            <Route path="/about-product" element={<AboutTemplate />} />
-            <Route path="/reviews" element={<ReviewTemplate />} />
-            <Route path="/owner-management" element={<ManagementTemplate />} />
-          </Routes>
-      </Router>
-    </header>
+    <body>
+      <header>
+        <SearchBar />
+          <Router>
+            <Navigation />
+            <Routes>
+              <Route path="/" element={<HomeTemplate />} />
+              <Route path="/browse-inventory" element={<InventoryTemplate />} />
+              <Route path="/order-information" element={<OrderTemplate />} />
+              <Route path="/map-purchase" element={<MapPurchaseTemplate />} />
+              <Route path="/about-product" element={<AboutTemplate />} />
+              <Route path="/reviews" element={<ReviewTemplate />} />
+              <Route path="/owner-management" element={<ManagementTemplate />} />
+            </Routes>
+        </Router>
+      </header>
+    </body>
   );
 }
 

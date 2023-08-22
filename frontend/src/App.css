@@ -1,3 +1,7 @@
+body {
+  font-family: 'Open Sans', sans-serif; /* Use the chosen font */
+}
+
 .custom-navbar {
   background-color: #3143e8;
   padding: 1rem 0;
