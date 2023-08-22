@@ -36,6 +36,28 @@ const InventoryCrud = ({ load, rocks }) => {
   const handleMaxLengthChange = (event) => {
     setMaxLength(event.target.value);
   };
+  const handleMinWidthChange = (event) => {
+    setMinWidth(event.target.value);
+  };
+  
+  const handleMaxWidthChange = (event) => {
+    setMaxWidth(event.target.value);
+  };
+  const handleMinHeightChange = (event) => {
+    setMinHeight(event.target.value);
+  };
+  
+  const handleMaxHeightChange = (event) => {
+    setMaxHeight(event.target.value);
+  };
+
+  const handleMinWeightChange = (event) => {
+    setMinWeight(event.target.value);
+  };
+
+  const handleMaxWeightChange = (event) => {
+    setMaxWeight(event.target.value);
+  };
 
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
@@ -71,6 +93,12 @@ const InventoryCrud = ({ load, rocks }) => {
     setFilteredLocations([]);
     setMinLength("");
     setMaxLength("");
+    setMinWidth("");
+    setMaxWidth("");
+    setMinHeight("");
+    setMaxHeight("");
+    setMinWeight("");
+    setMaxWeight("");
     setFilteredRocks([]);
     setShowFilteredRocks(false);
   };
@@ -100,12 +128,19 @@ const InventoryCrud = ({ load, rocks }) => {
       const isLocationMatch = filteredLocations.length === 0 || lowercasedLocations.includes(rock.location.toLowerCase());
       const isMinLengthMatch = !minLength || rock.length >= parseInt(minLength, 10); // Ensure to specify base 10
       const isMaxLengthMatch = !maxLength || rock.length <= parseInt(maxLength, 10); // Ensure to specify base 10
+      const isMinWidthMatch = !minWidth || rock.width >= parseInt(minWidth, 10); // Ensure to specify base 10
+      const isMaxWidthMatch = !maxWidth || rock.width <= parseInt(maxWidth, 10); // Ensure to specify base 10
+      const isMinHeightMatch = !minHeight || rock.height >= parseInt(minHeight, 10); // Ensure to specify base 10
+      const isMaxHeightMatch = !maxHeight || rock.height <= parseInt(maxHeight, 10); // Ensure to specify base 10
+      const isMinWeightMatch = !minWeight || rock.weight >= parseInt(minWeight, 10); // Ensure to specify base 10
+      const isMaxWeightMatch = !maxWeight || rock.weight <= parseInt(maxWeight, 10); // Ensure to specify base 10
 
       setShowFilteredRocks(true);
       toggleDropdown();
       toggleDropdownLocations();
   
-      return isNameMatch && isLocationMatch && isMinLengthMatch && isMaxLengthMatch;
+      return isNameMatch && isLocationMatch && isMinLengthMatch && isMaxLengthMatch && isMinWidthMatch &&
+             isMaxWidthMatch && isMinHeightMatch && isMaxHeightMatch && isMinWeightMatch && isMaxWeightMatch;
     });
   
     setFilteredRocks(filteredRocks);
@@ -233,6 +268,61 @@ const InventoryCrud = ({ load, rocks }) => {
                   placeholder="Max Length"
                 />
               </div>
+
+              <div className="form-group px-3">
+                <label>Filter by Width:</label>
+                <input
+                  type="number"
+                  className="form-control"
+                  value={minWidth}
+                  onChange={handleMinWidthChange}
+                  placeholder="Min Width"
+                />
+                <input
+                  type="number"
+                  className="form-control"
+                  value={maxWidth}
+                  onChange={handleMaxWidthChange}
+                  placeholder="Max Width"
+                />
+              </div>
+
+              <div className="form-group px-3">
+                <label>Filter by Height:</label>
+                <input
+                  type="number"
+                  className="form-control"
+                  value={minHeight}
+                  onChange={handleMinHeightChange}
+                  placeholder="Min Height"
+                />
+                <input
+                  type="number"
+                  className="form-control"
+                  value={maxHeight}
+                  onChange={handleMaxHeightChange}
+                  placeholder="Max Height"
+                />
+              </div>
+
+              <div className="form-group px-3">
+                <label>Filter by Weight:</label>
+                <input
+                  type="number"
+                  className="form-control"
+                  value={minWeight}
+                  onChange={handleMinWeightChange}
+                  placeholder="Min Weight"
+                />
+                <input
+                  type="number"
+                  className="form-control"
+                  value={maxWeight}
+                  onChange={handleMaxWeightChange}
+                  placeholder="Max Weight"
+                />
+              </div>
+              
               <div className="row form-group px-3">
                 <div className="col-md-8"></div>
                 <div className="col-md-4 form-group d-flex justify-content-between px-3">
