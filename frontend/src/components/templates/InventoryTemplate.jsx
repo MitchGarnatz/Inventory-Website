@@ -12,11 +12,18 @@ function InventoryTemplate() {
     (async () => await load())();
   }, []);
 
-  async function load() {
-    const result = await apiRock.get("/all");
-    
+  async function load(sortByPriceAsc = false, sortByPriceDesc = false) {
+    let url = "/all";
+
+    if (sortByPriceAsc) {
+        url = "/all/sortByPrice";
+    } else if (sortByPriceDesc) {
+        url = "/all/sortByPriceDesc";
+    }
+
+    const result = await apiRock.get(url);
     setRocks(result.data);
-  }
+}
 
 return (
   <div>
