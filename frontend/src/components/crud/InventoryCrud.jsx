@@ -26,6 +26,8 @@ const InventoryCrud = ({ load, rocks }) => {
   const [maxHeight, setMaxHeight] = useState("");
   const [minWeight, setMinWeight] = useState(""); 
   const [maxWeight, setMaxWeight] = useState("");
+  const [minPrice, setMinPrice] = useState(""); 
+  const [maxPrice, setMaxPrice] = useState("");
   const [filteredRocks, setFilteredRocks] = useState([]);
   const [showFilteredRocks, setShowFilteredRocks] = useState(false);
 
@@ -57,6 +59,14 @@ const InventoryCrud = ({ load, rocks }) => {
 
   const handleMaxWeightChange = (event) => {
     setMaxWeight(event.target.value);
+  };
+
+  const handleMinPriceChange = (event) => {
+    setMinPrice(event.target.value);
+  };
+
+  const handleMaxPriceChange = (event) => {
+    setMaxPrice(event.target.value);
   };
 
   const toggleDropdown = () => {
@@ -99,6 +109,8 @@ const InventoryCrud = ({ load, rocks }) => {
     setMaxHeight("");
     setMinWeight("");
     setMaxWeight("");
+    setMinPrice("");
+    setMaxPrice("");
     setFilteredRocks([]);
     setShowFilteredRocks(false);
   };
@@ -134,13 +146,16 @@ const InventoryCrud = ({ load, rocks }) => {
       const isMaxHeightMatch = !maxHeight || rock.height <= parseInt(maxHeight, 10); // Ensure to specify base 10
       const isMinWeightMatch = !minWeight || rock.weight >= parseInt(minWeight, 10); // Ensure to specify base 10
       const isMaxWeightMatch = !maxWeight || rock.weight <= parseInt(maxWeight, 10); // Ensure to specify base 10
+      const isMinPriceMatch = !minPrice || rock.price >= parseInt(minPrice, 10); // Ensure to specify base 10
+      const isMaxPriceMatch = !maxPrice || rock.price <= parseInt(maxPrice, 10); // Ensure to specify base 10
 
       setShowFilteredRocks(true);
       toggleDropdown();
       toggleDropdownLocations();
   
       return isNameMatch && isLocationMatch && isMinLengthMatch && isMaxLengthMatch && isMinWidthMatch &&
-             isMaxWidthMatch && isMinHeightMatch && isMaxHeightMatch && isMinWeightMatch && isMaxWeightMatch;
+             isMaxWidthMatch && isMinHeightMatch && isMaxHeightMatch && isMinWeightMatch && isMaxWeightMatch &&
+             isMinPriceMatch && isMaxPriceMatch;
     });
   
     setFilteredRocks(filteredRocks);
@@ -268,7 +283,6 @@ const InventoryCrud = ({ load, rocks }) => {
                   placeholder="Max Length"
                 />
               </div>
-
               <div className="form-group px-3">
                 <label>Filter by Width:</label>
                 <input
@@ -286,7 +300,6 @@ const InventoryCrud = ({ load, rocks }) => {
                   placeholder="Max Width"
                 />
               </div>
-
               <div className="form-group px-3">
                 <label>Filter by Height:</label>
                 <input
@@ -304,7 +317,6 @@ const InventoryCrud = ({ load, rocks }) => {
                   placeholder="Max Height"
                 />
               </div>
-
               <div className="form-group px-3">
                 <label>Filter by Weight:</label>
                 <input
@@ -322,7 +334,23 @@ const InventoryCrud = ({ load, rocks }) => {
                   placeholder="Max Weight"
                 />
               </div>
-              
+              <div className="form-group px-3">
+                <label>Filter by Price:</label>
+                <input
+                  type="number"
+                  className="form-control"
+                  value={minPrice}
+                  onChange={handleMinPriceChange}
+                  placeholder="Min Price"
+                />
+                <input
+                  type="number"
+                  className="form-control"
+                  value={maxPrice}
+                  onChange={handleMaxPriceChange}
+                  placeholder="Max Price"
+                />
+              </div>
               <div className="row form-group px-3">
                 <div className="col-md-8"></div>
                 <div className="col-md-4 form-group d-flex justify-content-between px-3">
